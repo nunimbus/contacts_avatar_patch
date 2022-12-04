@@ -41,13 +41,13 @@ class Application extends App implements IBootstrap {
 		$server = \OC::$server;
 		$coreContainer = $server->query(\OC\Core\Application::class)->getContainer();
 
-		$coreContainer->registerService('ContactsMenuControllerMiddleware', function($c){
+		$coreContainer->registerService('ContactsAvatarPatch\ContactsMenuControllerMiddleware', function($c){
 			return new ContactsMenuControllerMiddleware(
 				$c->get(IRequest::class),
 				$c->get(IControllerMethodReflector::class)
 			);
 		});
-		$coreContainer->registerMiddleware('ContactsMenuControllerMiddleware');
+		$coreContainer->registerMiddleware('ContactsAvatarPatch\ContactsMenuControllerMiddleware');
 	}
 
 	public function register(IRegistrationContext $context): void {
