@@ -17,9 +17,11 @@ class ContactsMenuControllerMiddleware extends Middleware {
 		$userManager = OC::$server->getUserManager();
 		$data = $response->getData();
 
-		foreach ($data['contacts'] as $key=>$contact) {
-			if ($userManager->get($contact->jsonSerialize()['id']) === null) {
-				$data['contacts'][$key]->setAvatar("");
+		if (isset($data['contacts']) || array_key_exists('contacts', $data)) {
+			foreach ($data['contacts'] as $key=>$contact) {
+				if ($userManager->get($contact->jsonSerialize()['id']) === null) {
+					$data['contacts'][$key]->setAvatar("");
+				}
 			}
 		}
 
